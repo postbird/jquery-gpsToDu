@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GPS  度分秒、度分、度 相互转化插件 pgsToDU.js</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="./gpsToDu.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .well2{
+            background-color: #fff;
+            border:0px;
+            padding:19px;
+            min-height: 20px;
+            color:slategrey;
+        }
+        .form-control{
+            width:50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="margin-bottom:200px;">
+        <div class="row">
+            <div class="jumbotron">
+                <h2><img src="./logo.png" alt="" width="70px">
+                    @ Postbird</h2>
+                    <p><a href="mailto:ptbird@yeah.net" class="btn btn-primary btn-sm">email：ptbird@yeah.net ></a></p>
+                    <p><a href="http://www.ptbird.cn" class="btn btn-success btn-sm">website：www.ptbird.cn  ></a></p>
+                    <p><small>本页面采用 bootcss cdn服务的bootstrap&jquery，如页面显示不正常或jquery无反应，请确认网络连接正确。</small></p>
+                    <p><small>POSTBIRD:There I am ,in the world more exciting!</small></p>
+            </div>
+            <div class="page-header">
+                    <h1>GPS 度分秒 | 度分 | 度 相互转化插件  <small>gpsToDu.js</small> </h1>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="">体验一 DMS | DM to D：</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well2">
+                            注：1、将gps数据转换成小数点格式即度格式: <font color="red">W 39°55′44″</font>->39.9288888885 或  <font color="red"> 39°55.7333 ' N </font>->39.9288888885 <br>
+                            注： 2、其中： W S N E 分别表示经纬度方向 返回结果中 W S 将返回负值
+                        </div>
+                        <input type="text" id="gpsToDuInputId" class="form-control" placeholder="输入GPS数据 度分秒格式或 度分格式 示例：W 39°55′44″"><br>
+                    </div>
+                    <div class="panel-footer">
+                        <button id="gpsToDuBtn" class="btn btn-info btn-sm ">点击转换,结果将在后面显示</button>
+                        转换结果： <strong><font color="red"><span id="gpsToDuSpanId"></span></font></strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4>体验二 D to DMS：</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well2">
+                            注：1、将小数点格式即度格式转换成gps数据中的DMS格式: <font color="red">39.9288888885</font>->W 39°55′44″ <br>
+                            注： 2、其中： W S N E 分别表示经纬度方向
+                        </div>
+                        <input type="text" id="duToDMSInputId" class="form-control" placeholder="输入D 度格式数据 示例：-39.9288888885"><br>
+                        选择经纬度方向：
+                        <select name="" id="duToDMSSelectId" >
+                            <option value="n" selected>N(北纬)</option>
+                            <option value="w" selected>W(西经)</option>
+                            <option value="s" selected>S(南纬)</option>
+                            <option value="e" selected>E(东经)</option>
+                        </select>
+                    </div>
+                    <div class="panel-footer">
+                        <button id="duToDMSBtn" class="btn btn-warning btn-sm ">点击转换,结果将在后面显示</button>
+                        转换结果： <strong><font color="red"><span id="duToDMSSpanId"></span></font></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+               <div class="panel panel-default">
+                   <div class="panel-heading">
+                       <h4>体验三 D to DM：</h4>
+                   </div>
+                   <div class="panel-body">
+                       <div class="well2">
+                           注：1、将小数点格式即度格式转换成gps数据中的DM格式: <font color="red">39.9288888885</font>-><font color="red">W  39°55.7333′</font> <br>
+                           注： 2、其中： W S N E 分别表示经纬度方向
+                       </div>
+                       <input type="text" id="duToDMInputId" class="form-control" placeholder="输入D 度格式数据 示例：-39.9288888885"><br>
+                       选择经纬度方向：
+                       <select name="" id="duToDMSelectId" >
+                           <option value="n" selected>N(北纬)</option>
+                           <option value="w" selected>W(西经)</option>
+                           <option value="s" selected>S(南纬)</option>
+                           <option value="e" selected>E(东经)</option>
+                       </select>
+                   </div>
+                   <div class="panel-footer">
+                       <button id="duToDMBtn" class="btn btn-danger btn-sm ">点击转换,结果将在后面显示</button>
+                       转换结果： <strong><font color="red"><span id="duToDMSpanId"></span></font></strong>
+                   </div>
+               </div>
+            </div>
+            <div class="col-md-12">
+                <div class="page-header"><h2> 使用说明： </h2> </div>
+                <h2><small>一、文件引入：<strong><span><</span><font color="#cd5c5c">script src="./gpsToDu.js"><</font>script></strong></small></h2>
+                <h2><small>二、文件说明：</small></h2>
+                <div class="well2"> <h4>文件中有三个函数分别为
+                    <br><br> <strong> gpsToDu(gpsStr) / <small>将DMS 或 DM 抓换成 D</small></strong>
+                    <br><br><strong> duToGpsDMS(duStr,duDir) / <small>将D 抓换成 DMS</small></strong>
+                    <br><br><strong> duToGpsDM(duStr,duDir) /  <small>将D 抓换成 DM</small></strong> </h4>  </div>
+                <h2><small>三、函数调用： 以第一个体验举例</small></h2>
+                <pre ><h4>
+                    $('#gpsToDuBtn').click(function(){
+
+                           var str1=$('#gpsToDuInputId').val();
+
+                           $('#gpsToDuSpanId').text(gpsToDu(str1)[1]);
+
+                      });
+                </h4></pre>
+            </div>
+            <div class="col-md-12">
+                <div class="page-header"><h2> 版权声明： </h2> </div>
+                <h2><small>一、开放使用，您可以在此基础上按需求调整或将函数粘贴出以减少get请求数量。</small></h2>
+                <h2><small>二、您可以在此基础上二次包装并再次进行发布。</small></h2>
+            </div>
+            <div class="col-md-12">
+                <div class="page-header"><h2> JS源代码： </h2> </div>
+               <pre>
+/** Created by postbird on 2016/4/1.  ...*/
+/**
+ *      @postbird
+ *      1、本插件采用js编写，可直接将函数复制到个人js文件，减少get请求数
+ *      2、author：powered by postbird
+ *      3、email： ptbird@yeah.net
+ *      4、site：http://www.ptbird.cn
+ * */
+/**
+ 文件说明：将gps的坐标转换成度形式的坐标方便计算 gpsToDu.js
+ 功能说明：
+        将str1 和 str2 形式的坐标转换成 str3形式  【 度分秒格式和度分格式 转换成 度格式 】
+             var str1="W 39°55′44″";//d-m-s  或者  str1="39°55′44″ W";
+             var str2="N 39°55.7333′";//d-m   或者  str2="39°55.7333′ E";
+             to:
+             var str3="39.9288888885"; // d
+ */
+/**
+ *  函数使用说明：
+ *      1、直接调用函数  gpsToDu(gpsStr);
+ *  返回说明： 返回结果数组
+ *      1 gpsDu[0] 表示方向 ，小写字母 s w e n
+ *      2 gpsDu[1] 表示计算的结果 ， 数字-19.8222222
+ * */
+/**
+ *  优点： 自动处理空格与其他无关字符，只处理表示方向、小数点、数字三种字符
+ *  缺点： 小数点必须为半角的小数点 .  不能是全角小数点
+ * */
+function gpsToDu(gpsStr){
+    gpsStr=gpsStr.toLowerCase();
+    gpsStr=gpsStr.replace(/\s+/g,"");
+    var tempStrArray=new Array();
+    var flag=1;
+    var lastFlag=0;
+    var strLength=gpsStr.length;
+    var gpsDu=new Array();
+    var gpsDir;
+    var tempcount=0;
+    var tempString="";
+    var tempPointFlag=0;
+    if (gpsStr[0] == 'w' || gpsStr[0] == 's') {
+        flag = -1;
+        lastFlag=0;
+        gpsDir=gpsStr[0];
+    } else if (gpsStr[strLength - 1] == 'w' || gpsStr[strLength - 1] == 's') {
+        flag = -1;
+        lastFlag=1;
+        gpsDir=gpsStr[strLength - 1];
+    }
+    for(var i=0;i<=strLength;i++){
+        if(gpsStr[i]>='0' && gpsStr[i]<='9') {
+          tempString += gpsStr[i];
+            continue;
+        }else if(gpsStr[i]=='.'){
+            tempStrArray[tempcount]=tempString;
+            tempString="";
+            tempcount++;
+            tempStrArray[tempcount]='.';
+            tempPointFlag=1;
+            tempcount++;
+        }else if(tempString.length>0){
+            tempStrArray[tempcount]=tempString;
+            tempString="";
+            tempcount++;
+        }
+    }
+    if(tempPointFlag==0){
+        var num1=parseInt(tempStrArray[0],10);
+        var num2=parseInt(tempStrArray[1],10);
+        var num3=parseInt(tempStrArray[2],10);
+        console.log(num1+'  '+num2/60+' '+num3/(60*60));
+        gpsDu[1]=num1+num2/60+num3/(60*60);
+        gpsDu[1]=gpsDu[1]*flag;
+        gpsDu[0]=gpsDir;
+    }else if (tempPointFlag==1){
+        var num1=parseInt(tempStrArray[0],10);
+        var num2=parseFloat(tempStrArray[1]+'.'+tempStrArray[3],10);
+        gpsDu[1]=num1+num2/60;
+        gpsDu[1]=gpsDu[1]*flag;
+        gpsDu[0]=gpsDir;
+    }
+    return gpsDu;
+}
+
+function duToGpsDMS(duStr,duDir){
+    duStr=duStr.toLowerCase();
+    duStr=duStr.replace(/\s+/g,"");
+    duDir=duDir.toUpperCase();
+    var strLength=duStr.length;
+    var tempString="";
+    var tempStrArray=new Array();
+    var tempCount=0;
+    var tempPointFlag=0;
+    var gpsDMS;
+    for(var i=0;i<=strLength;i++){
+        if(duStr[i]>='0' && duStr[i]<='9') {
+            tempString += duStr[i];
+            continue;
+        }else if(duStr[i]=='.'){
+            tempStrArray[tempCount]=tempString;
+            tempString="";
+            tempCount++;
+            tempStrArray[tempCount]='.';
+            tempPointFlag=1;
+            tempCount++;
+        }else if(tempString.length>0){
+            tempStrArray[tempCount]=tempString;
+            tempString="";
+            tempCount++;
+        }
+    }
+    if(tempPointFlag==1){
+        var num1=tempStrArray[0];
+        var num2=parseFloat('0'+tempStrArray[1]+ tempStrArray[2],10)*60;
+        var num3=parseInt(parseFloat((num2-parseInt(num2,10))*60,10),10);
+        num2=parseInt(num2,10);
+        console.log(tempStrArray);
+        console.log(num1+"   "+num2+"   "+num3+ " ");
+        gpsDMS=duDir+" "+num1+"°"+num2+"′"+num3+"″";
+        //gpsDMS=+num1+"°"+num2+"′"+num3+"″"+" "+duDir;
+        // console.log(gpsDMS);
+    }
+    return gpsDMS;
+}
+function duToGpsDM(duStr,duDir){
+    duStr=duStr.toLowerCase();
+    duStr=duStr.replace(/\s+/g,"");
+    duDir=duDir.toUpperCase();
+    var strLength=duStr.length;
+    var tempString="";
+    var tempStrArray=new Array();
+    var tempCount=0;
+    var tempPointFlag=0;
+    var gpsDM;
+    for(var i=0;i<=strLength;i++){
+        if(duStr[i]>='0' && duStr[i]<='9') {
+            tempString += duStr[i];
+            continue;
+        }else if(duStr[i]=='.'){
+            tempStrArray[tempCount]=tempString;
+            tempString="";
+            tempCount++;
+            tempStrArray[tempCount]='.';
+            tempPointFlag=1;
+            tempCount++;
+        }else if(tempString.length>0){
+            tempStrArray[tempCount]=tempString;
+            tempString="";
+            tempCount++;
+        }
+    }
+    if(tempPointFlag==1){
+        var num1=tempStrArray[0];
+        var num2=parseFloat('0'+tempStrArray[1]+ tempStrArray[2],10)*60;
+        gpsDM=duDir+" "+num1+"°"+num2+"′";
+        //gpsDM=+num1+"°"+num2+"′"+" "+duDir;
+        // console.log(gpsDM);
+    }
+    return gpsDM;
+}
+               </pre>
+            </div>
+            <div class="col-md-12">
+                <div class="well text-center">
+                    Powered by postbird . &copy;2016
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+        $('#gpsToDuBtn').click(function(){
+            var str1=$('#gpsToDuInputId').val();
+            $('#gpsToDuSpanId').text(gpsToDu(str1)[1]);
+        });
+
+        $('#duToDMSBtn').click(function(){
+            var str1=$('#duToDMSInputId').val();
+            var str2=$('#duToDMSSelectId').val();
+            $('#duToDMSSpanId').text(duToGpsDMS(str1,str2));
+        });
+
+        $('#duToDMBtn').click(function(){
+            var str1=$('#duToDMInputId').val();
+            var str2=$('#duToDMSelectId').val();
+            $('#duToDMSpanId').text(duToGpsDM(str1,str2));
+        });
+
+    });
+
+//    var str1=" 39°55′44 ″ w";//d-m-s
+//    var str2="39°55.733333333333′s";//d-m
+//    var str3="-39.928888888888885 °";
+//    var str3_1="w";
+////    alert(gpsToDu(str2));
+//    duToGpsDMS(str3,str3_1);
+//    duToGpsDM(str3,str3_1);
+</script>
+</body>
+</html>
